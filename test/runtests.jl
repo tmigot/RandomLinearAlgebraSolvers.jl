@@ -54,7 +54,7 @@ pb_pd_generators = [:overdetermined_with_random_pd_matrices]
 for meth in algo_list, fpb in pb_generators
     @testset "$meth: Test $(fpb)" begin
         A, b, sol = eval(fpb)()
-        stp = LAStopping(A, b, sparse=issparse(A), max_iter = 1000000)
+        stp = LAStopping(A, b, sparse=issparse(A), max_iter = 1000000, max_eval = 100000)
         eval(meth)(stp)
         @show status(stp) # == :Optimal
         @show @allocated eval(meth)(stp)
@@ -64,7 +64,7 @@ end
 for meth in union(algo_list, algo_pd_list), fpb in pb_pd_generators
     @testset "$meth: Test $(fpb)" begin
         A, b, sol = eval(fpb)()
-        stp = LAStopping(A, b, sparse=issparse(A), max_iter = 1000000)
+        stp = LAStopping(A, b, sparse=issparse(A), max_iter = 1000000, max_eval = 100000)
         eval(meth)(stp)
         @show status(stp) # == :Optimal
         @show @allocated eval(meth)(stp)

@@ -28,18 +28,18 @@ function RandomVectorSketch(stp :: AbstractStopping;
  m,n = size(A)
  x0  = stp.current_state.x
  xk  = x0
- res = A*xk - b
+ stp.current_state.res = A*xk - b
  OK = start!(stp)
 
  while !OK #norm(res) > prec
 
-  s  = random_func(1, m)'
+  s  = vec(random_func(1, m)')
   As  = A'*s
-  xk  = As == 0 ? x0 : x0 - dot(s,res)/dot(As,As) * As
+  xk  = As == 0 ? x0 : x0 - dot(s,stp.current_state.res)/dot(As,As) * As
 
   update!(stp.current_state, x = xk)
-  res = A*xk - b
-  OK = stop!(stp, res = res)
+  stp.current_state.res = A*xk - b
+  OK = stop!(stp)
   x0  = xk
 
  end
@@ -61,7 +61,7 @@ function RandomizedNewton(stp :: AbstractStopping; r :: Int = 15, rand_r :: Bool
     if (m != n || eigmin(A)<0) throw("RandomizedNewton error: non-spd matrix") end
     x0  = stp.current_state.x
     xk  = x0
-    res = A*xk - b
+    stp.current_state.res = A*xk - b
     OK = start!(stp)
 
     while !OK#norm(res) > prec
@@ -72,7 +72,7 @@ function RandomizedNewton(stp :: AbstractStopping; r :: Int = 15, rand_r :: Bool
      sample!(1:n, sub) #x is a subset of [1,...,n] of size r
 
      Ai = A[sub,:]
-     resk = res[sub] #resk = Ai*xk - b[sub]
+     resk = stp.current_state.res[sub] #resk = Ai*xk - b[sub]
 
      try
       d  = Ai \ -resk
@@ -82,8 +82,8 @@ function RandomizedNewton(stp :: AbstractStopping; r :: Int = 15, rand_r :: Bool
      end
 
      update!(stp.current_state, x = xk)
-     res = A*xk - b
-     OK = stop!(stp, res = res)
+     stp.current_state.res = A*xk - b
+     OK = stop!(stp)
      x0  = xk
 
     end

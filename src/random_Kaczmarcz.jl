@@ -17,7 +17,7 @@ function RandomizedKaczmarz(stp :: AbstractStopping; kwargs...)
     m,n = size(A)
     x0  = stp.current_state.x
     xk  = x0
-    res = A*xk - b
+    stp.current_state.res = A*xk - b
     OK = start!(stp)
 
     while !OK
@@ -27,8 +27,8 @@ function RandomizedKaczmarz(stp :: AbstractStopping; kwargs...)
      xk  = Ai == 0 ? x0 : x0 - (dot(Ai,x0)-b[i])/dot(Ai,Ai) * Ai
 
      update!(stp.current_state, x = xk)
-     res = A*xk - b
-     OK = stop!(stp, res = res)
+     stp.current_state.res = A*xk - b
+     OK = stop!(stp)
      x0  = xk
 
     end
@@ -51,7 +51,7 @@ function RandomizedBlockKaczmarz(stp :: AbstractStopping;
     m,n = size(A)
     x0  = stp.current_state.x
     xk  = x0
-    res = A*xk - b
+    stp.current_state.res = A*xk - b
     OK = start!(stp)
 
     while !OK#norm(res) > prec
@@ -63,12 +63,12 @@ function RandomizedBlockKaczmarz(stp :: AbstractStopping;
      sub = StatsBase.randperm(m)[1:r]
 
      Ai   = A[sub,:]
-     resk = res[sub]
+     resk = stp.current_state.res[sub]
      xk   = Ai == 0 ? x0 : x0 - Ai' * pinv(Matrix(Ai*Ai')) * resk
 
      update!(stp.current_state, x = xk)
-     res = A*xk - b
-     OK = stop!(stp, res = res)
+     stp.current_state.res = A*xk - b
+     OK = stop!(stp)
      x0  = xk
 
     end

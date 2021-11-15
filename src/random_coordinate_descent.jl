@@ -12,8 +12,7 @@ function RandomizedCD(stp :: AbstractStopping; kwargs...)
     m,n = size(A)
     x0  = stp.current_state.x
     xk  = x0
-    res = A*xk - b
-    OK = start!(stp)
+    OK = update_and_start!(stp, x = xk, res = A * xk - b)
 
     while !OK#norm(res) > prec
 
@@ -23,11 +22,9 @@ function RandomizedCD(stp :: AbstractStopping; kwargs...)
      #ei = zeros(n); ei[i] = 1.0 #unit vector in R^n
      #xk  = Ai == 0 ? x0 : x0 - dot(Ai,res)/norm(Ai,2)^2 * ei
      xk = x0
-     xk[i] = x0[i] - dot(Ai,res)/norm(Ai,2)^2
+     xk[i] = x0[i] - dot(Ai, stp.current_state.res)/norm(Ai,2)^2
 
-     update!(stp.current_state, x = xk)
-     res = A*xk - b
-     OK = stop!(stp, res = res)
+     OK = update_and_stop!(stp, x = xk, res = A * xk - b)
      x0  = xk
 
     end
@@ -49,8 +46,7 @@ function RandomizedCD2(stp :: AbstractStopping; kwargs...)
     if (m != n || eigmin(A)<0) throw("RandomizedCD2 error: non-spd matrix") end
     x0  = stp.current_state.x
     xk  = x0
-    res = A*xk - b
-    OK = start!(stp)
+    OK = update_and_start!(stp, x = xk, res = A*xk - b)
 
     while !OK#norm(res) > prec
 
@@ -62,9 +58,7 @@ function RandomizedCD2(stp :: AbstractStopping; kwargs...)
      xk = x0
      xk[i] = A[i,i] == 0 ? x0[i] : x0[i] - (dot(Ai,x0)-b[i])/A[i,i]
 
-     update!(stp.current_state, x = xk)
-     res = A*xk - b
-     OK = stop!(stp, res = res)
+     OK = update_and_stop!(stp, x = xk, res = A*xk - b)
      x0  = xk
 
     end
