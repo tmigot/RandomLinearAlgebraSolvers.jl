@@ -16,8 +16,12 @@ function RandomizedKaczmarz(stp :: AbstractStopping; is_zero_start::Bool = false
     A,b = get_matrix(stp.pb), get_vector(stp.pb)
     state = stp.current_state
     m = size(A, 1)
-    state.res = is_zero_start ? b : b - A * state.x
-    OK = start!(stp)
+    if is_zero_start
+        state.res .= b
+    else
+        state.res .= b .- A * state.x
+    end
+    OK = start!(stp, no_opt_check = true)
 
     while !OK
 
@@ -50,8 +54,12 @@ function RandomizedBlockKaczmarz(stp :: AbstractStopping;
     A,b = get_matrix(stp.pb), get_vector(stp.pb)
     state = stp.current_state
     m = size(A, 1)
-    state.res = is_zero_start ? b : b - A * state.x
-    OK = start!(stp)
+    if is_zero_start
+        state.res .= b
+    else
+        state.res .= b .- A * state.x
+    end
+    OK = start!(stp, no_opt_check = true)
 
     while !OK
 

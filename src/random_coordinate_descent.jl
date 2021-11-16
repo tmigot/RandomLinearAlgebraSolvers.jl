@@ -14,9 +14,12 @@ function RandomizedCD(
     A, b = get_matrix(stp.pb), get_vector(stp.pb)
     state = stp.current_state
     m, n = size(A)
-    x  = state.x
-    state.res = is_zero_start ? b : b - A * x
-    OK = start!(stp, no_start_opt_check = true)
+    if is_zero_start
+        state.res .= b
+    else
+        state.res .= b .- A * state.x
+    end
+    OK = start!(stp, no_opt_check = true)
 
     while !OK
 
@@ -46,9 +49,12 @@ function RandomizedCD2(stp :: AbstractStopping; is_zero_start::Bool = false, kwa
     A,b = get_matrix(stp.pb), get_vector(stp.pb)
     state = stp.current_state
     n = size(A, 2)
-    x  = state.x
-    state.res = is_zero_start ? b : b - A * x
-    OK = start!(stp, no_start_opt_check = true)
+    if is_zero_start
+        state.res .= b
+    else
+        state.res .= b .- A * state.x
+    end
+    OK = start!(stp, no_opt_check = true)
 
     #if (m != n || eigmin(A)<0) throw("RandomizedCD2 error: non-spd matrix") end
 

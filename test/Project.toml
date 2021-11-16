@@ -1,4 +1,5 @@
 [deps]
+LLSModels = "39f5bc3e-5160-4bf8-ac48-504fd2534d24"
 LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
 MatrixDepot = "b51810bb-c9f3-55da-ae3c-350fc1fbce05"
 Random = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
