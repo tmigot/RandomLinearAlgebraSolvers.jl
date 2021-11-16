@@ -3,7 +3,7 @@ module RandomKrylov
 using Krylov
 
 macro kdot(n, x, y)
-    return esc(:(Krylov.krylov_dot($n, $x, 1, $y, 1)))
+  return esc(:(Krylov.krylov_dot($n, $x, 1, $y, 1)))
 end
 
 using LinearAlgebra, LLSModels, SparseArrays, Stopping
