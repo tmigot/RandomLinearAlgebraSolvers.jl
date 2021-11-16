@@ -12,25 +12,24 @@ This means that it is equivalent to the SGD method.
 However, the stepsize choice is very special: RK chooses the stepsize which leads to the point
 which is closest to x^* in the Euclidean norm.
 """
-function RandomizedKaczmarz(stp :: AbstractStopping; kwargs...)
+function RandomizedKaczmarz(stp :: AbstractStopping; is_zero_start::Bool = false, kwargs...)
     A,b = get_matrix(stp.pb), get_vector(stp.pb)
-    m,n = size(A)
-    x0  = stp.current_state.x
-    xk  = x0
-    stp.current_state.res = A*xk - b
+    state = stp.current_state
+    m = size(A, 1)
+    state.res = is_zero_start ? b : b - A * state.x
     OK = start!(stp)
 
     while !OK
 
-     i  = Int(floor(rand() * m)+1) #rand a number between 1 and m
-     Ai = A[i,:]
-     xk  = Ai == 0 ? x0 : x0 - (dot(Ai,x0)-b[i])/dot(Ai,Ai) * Ai
-
-     update!(stp.current_state, x = xk)
-     stp.current_state.res = A*xk - b
-     OK = stop!(stp)
-     x0  = xk
-
+     i  = Int(floor(rand() * m) + 1) #rand a number between 1 and m
+     Ai = view(A, i, :)
+     AiAi = dot(Ai, Ai)
+     if AiAi != 0
+        Aix = dot(Ai, state.x)
+        state.x .-= (Aix - b[i]) / AiAi * Ai
+     end
+     state.res = b - A * state.x
+     OK = cheap_stop!(stp)
     end
 
  return stp
@@ -44,33 +43,31 @@ Randomized iterative methods for linear systems.
 SIAM Journal on Matrix Analysis and Applications, 36(4), 1660-1690.
 """
 function RandomizedBlockKaczmarz(stp :: AbstractStopping;
+                                 is_zero_start::Bool = false,
                                  r :: Int = 15,
                                  rand_r :: Bool = false,
                                  kwargs...)
     A,b = get_matrix(stp.pb), get_vector(stp.pb)
-    m,n = size(A)
-    x0  = stp.current_state.x
-    xk  = x0
-    stp.current_state.res = A*xk - b
+    state = stp.current_state
+    m = size(A, 1)
+    state.res = is_zero_start ? b : b - A * state.x
     OK = start!(stp)
 
-    while !OK#norm(res) > prec
+    while !OK
 
      #r   = Int(floor(rand() * min(m,n))+1) #rand a number between 1 and m
-     r    = rand_r ? Int(floor(rand() * m)+1) : min(r, m)
+     r    = rand_r ? Int(floor(rand() * m) + 1) : min(r, m)
      sub = zeros(Int64, r)
      #sample!(1:m, sub) #x is a subset of [1,...,m] of size r #sample repeat entries
      sub = StatsBase.randperm(m)[1:r]
 
-     Ai   = A[sub,:]
-     resk = stp.current_state.res[sub]
-     xk   = Ai == 0 ? x0 : x0 - Ai' * pinv(Matrix(Ai*Ai')) * resk
-
-     update!(stp.current_state, x = xk)
-     stp.current_state.res = A*xk - b
-     OK = stop!(stp)
-     x0  = xk
-
+     Ai   = view(A, sub, :)
+     resk = state.res[sub]
+     if !(Ai == 0)
+        state.x .-= Ai' * pinv(Matrix(Ai * Ai')) * resk
+     end
+     state.res .= A * state.x .- b
+     OK = cheap_stop!(stp)
     end
 
  return stp

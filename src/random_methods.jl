@@ -3,7 +3,7 @@ export randomInv, RandomVectorSketch, RandomizedNewton
 """
 Solve TAx=Tb with T a random projector
 """
-function randomInv(stp :: AbstractStopping; k = 50, random_func = random_matrix_1, kwargs...)
+function randomInv(stp :: AbstractStopping; is_zero_start::Bool = false, k = 50, random_func = random_matrix_1, kwargs...)
   A, b = get_matrix(stp.pb), get_vector(stp.pb)
   m = size(A, 1)
 
@@ -23,7 +23,7 @@ Randomized iterative methods for linear systems.
 SIAM Journal on Matrix Analysis and Applications, 36(4), 1660-1690.
 """
 function RandomVectorSketch(stp :: AbstractStopping;
-                            random_func = random_matrix_1, kwargs...)
+    is_zero_start::Bool = false, random_func = random_matrix_1, kwargs...)
  A,b = get_matrix(stp.pb), get_vector(stp.pb)
  m,n = size(A)
  x0  = stp.current_state.x
@@ -55,7 +55,7 @@ Sect. 3.6 in Gower, R. M., & Richtárik, P. (2015).
 Randomized iterative methods for linear systems.
 SIAM Journal on Matrix Analysis and Applications, 36(4), 1660-1690.
 """
-function RandomizedNewton(stp :: AbstractStopping; r :: Int = 15, rand_r :: Bool = false, kwargs...)
+function RandomizedNewton(stp :: AbstractStopping; is_zero_start::Bool = false, r :: Int = 15, rand_r :: Bool = false, kwargs...)
     A,b = get_matrix(stp.pb), get_vector(stp.pb)
     m,n = size(A)
     if (m != n || eigmin(A)<0) throw("RandomizedNewton error: non-spd matrix") end

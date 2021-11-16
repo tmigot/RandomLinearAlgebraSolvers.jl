@@ -6,7 +6,8 @@ using MatrixDepot
 
 Random.seed!(1234)
 
-algo_list = [:RandomizedKaczmarz, :RandomizedBlockKaczmarz, :RandomizedCD, :RandomVectorSketch, :randomInv]
+# algo_list = [:RandomVectorSketch, :randomInv]
+algo_list = [:RandomizedKaczmarz, :RandomizedBlockKaczmarz, :RandomizedCD]
 algo_pd_list = [:RandomizedCD2, :RandomizedNewton]
 
 @testset "RandomKrylov.jl" begin
@@ -54,9 +55,9 @@ pb_pd_generators = [:overdetermined_with_random_pd_matrices]
 for meth in algo_list, fpb in pb_generators
     @testset "$meth: Test $(fpb)" begin
         A, b, sol = eval(fpb)()
-        stp = LAStopping(A, b, sparse=issparse(A), max_iter = 1000000, max_eval = 100000)
+        stp = LAStopping(A, b, sparse=issparse(A), max_iter = 1000000, max_eval = 100000, rtol = 1e-2, atol = 0.0)
         eval(meth)(stp)
-        @show status(stp) # == :Optimal
+        @test status(stp) == :Optimal
         @show @allocated eval(meth)(stp)
     end
 end
@@ -64,9 +65,9 @@ end
 for meth in union(algo_list, algo_pd_list), fpb in pb_pd_generators
     @testset "$meth: Test $(fpb)" begin
         A, b, sol = eval(fpb)()
-        stp = LAStopping(A, b, sparse=issparse(A), max_iter = 1000000, max_eval = 100000)
+        stp = LAStopping(A, b, sparse=issparse(A), max_iter = 1000000, max_eval = 100000, rtol = 1e-2, atol = 0.0)
         eval(meth)(stp)
-        @show status(stp) # == :Optimal
+        @test status(stp) == :Optimal
         @show @allocated eval(meth)(stp)
     end
 end
