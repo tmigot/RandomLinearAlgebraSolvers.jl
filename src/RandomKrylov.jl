@@ -28,6 +28,7 @@ end
 include("random_Kaczmarcz.jl")
 include("random_coordinate_descent.jl")
 include("random_projector.jl")
+include("random_Newton.jl")
 include("random_methods.jl")
 
 end
