@@ -14,4 +14,7 @@ Stopping = "c4fe5a9e-e7fb-5c3d-89d5-7f405ab2214f"
 
 [compat]
 Krylov = "0.7"
+StatsBase = "0.33"
+LLSModels = "0.3"
+Stopping = "0.3"
 julia = "1"
