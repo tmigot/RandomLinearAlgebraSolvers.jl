@@ -14,21 +14,21 @@ algo_pd_list = [:RandomizedCD2, :RandomizedNewton]
   # Write your tests here.
 end
 
-function overdetermined_with_random_matrices(T = Float64, m = 10, n = 5) # , m=1000, n=500
+function overdetermined_with_random_matrices(T = Float64, m = 10, n = 5)
   A = rand(T, m, n)
   sol = rand(T, n)
   b = A * sol
   return A, b, sol
 end
 
-function overdetermined_with_sparse_random_matrices(T = Float64, m = 10, n = 5) # m=1000, n=500
+function overdetermined_with_sparse_random_matrices(T = Float64, m = 10, n = 5)
   A = sprand(T, m, n, 1 / log(n * m))
   sol = rand(T, n)
   b = A * sol
   return A, b, sol
 end
 
-function overdetermined_with_random_pd_matrices(T = Float64, n = 10) # n=1000
+function overdetermined_with_random_pd_matrices(T = Float64, n = 10)
   A = rand(T, n, n)
   A = A' * A
   A = (A + A') / 2

@@ -4,7 +4,7 @@ export RandomizedNewton
 Randomized Newton
 -> for symmetric positive definite matrix
 
-Sect. 3.6 in Gower, R. M., & Richtárik, P. (2015).
+Section 3.6 in Gower, R. M., & Richtárik, P. (2015).
 Randomized iterative methods for linear systems.
 SIAM Journal on Matrix Analysis and Applications, 36(4), 1660-1690.
 """
@@ -26,8 +26,6 @@ function RandomizedNewton(
   OK = start!(stp, no_opt_check = true)
 
   while !OK
-
-    #r   = Int(floor(rand() * n)+1) #rand a number between 1 and n
     r = rand_r ? Int(floor(rand() * n) + 1) : r
     sub = zeros(Int64, r)
     sample!(1:n, sub) #x is a subset of [1,...,n] of size r

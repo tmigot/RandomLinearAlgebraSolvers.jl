@@ -3,14 +3,14 @@ export RandomizedKaczmarz, RandomizedBlockKaczmarz
 """
 Randomized Kaczmarz
 
-Sect. 3.3 in Gower, R. M., & Richtárik, P. (2015).
+Section 3.3 in Gower, R. M., & Richtárik, P. (2015).
 Randomized iterative methods for linear systems.
 SIAM Journal on Matrix Analysis and Applications, 36(4), 1660-1690.
 
 RK takes a step in the direction of the negative stochastic gradient.
 This means that it is equivalent to the SGD method.
 However, the stepsize choice is very special: RK chooses the stepsize which leads to the point
-which is closest to x^* in the Euclidean norm.
+which is closest to x* in the Euclidean norm.
 """
 function RandomizedKaczmarz(stp::AbstractStopping; is_zero_start::Bool = false, kwargs...)
   A, b = get_matrix(stp.pb), get_vector(stp.pb)
@@ -24,7 +24,7 @@ function RandomizedKaczmarz(stp::AbstractStopping; is_zero_start::Bool = false, 
   OK = start!(stp, no_opt_check = true)
 
   while !OK
-    i = Int(floor(rand() * m) + 1) #rand a number between 1 and m
+    i = Int(floor(rand() * m) + 1)
     Ai = view(A, i, :)
     AiAi = dot(Ai, Ai)
     if AiAi != 0
@@ -41,7 +41,7 @@ end
 """
 Randomized block Kaczmarz
 
-Sect. 3.5 in Gower, R. M., & Richtárik, P. (2015).
+Section 3.5 in Gower, R. M., & Richtárik, P. (2015).
 Randomized iterative methods for linear systems.
 SIAM Journal on Matrix Analysis and Applications, 36(4), 1660-1690.
 """
@@ -63,8 +63,6 @@ function RandomizedBlockKaczmarz(
   OK = start!(stp, no_opt_check = true)
 
   while !OK
-
-    #r   = Int(floor(rand() * min(m,n))+1) #rand a number between 1 and m
     r = rand_r ? Int(floor(rand() * m) + 1) : min(r, m)
     sub = zeros(Int64, r)
     #sample!(1:m, sub) #x is a subset of [1,...,m] of size r #sample repeat entries
