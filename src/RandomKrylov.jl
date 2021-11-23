@@ -1,4 +1,4 @@
-module RandomKrylov
+module RandomLinearAlgebraSolvers
 
 using LinearAlgebra, LLSModels, SparseArrays, Stopping
 using StatsBase # for sample!

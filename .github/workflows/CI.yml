@@ -62,6 +62,6 @@ jobs:
       - run: |
           julia --project=docs -e '
             using Documenter: DocMeta, doctest
-            using RandomKrylov
-            DocMeta.setdocmeta!(RandomKrylov, :DocTestSetup, :(using RandomKrylov); recursive=true)
-            doctest(RandomKrylov)'
+            using RandomLinearAlgebraSolvers
+            DocMeta.setdocmeta!(RandomLinearAlgebraSolvers, :DocTestSetup, :(using RandomLinearAlgebraSolvers); recursive=true)
+            doctest(RandomLinearAlgebraSolvers)'

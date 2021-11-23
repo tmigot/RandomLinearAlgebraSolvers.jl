@@ -1,7 +1,7 @@
 ## Benchmark on dense random symmetric positive definite matrices
 
 ```@example ex1
-using RandomKrylov, Random, LinearAlgebra, SparseArrays
+using RandomLinearAlgebraSolvers, Random, LinearAlgebra, SparseArrays
 Random.seed!(1234)
 ```
 Benchmark of methods to solve `Ax = b` with `A` an `n x n` randomly generated symmetric positive definite matrix, and `b = A * xref`.

@@ -1,7 +1,7 @@
 ## Benchmark on dense overdetermined random matrices
 
 ```@example ex1
-using RandomKrylov, Random, LinearAlgebra, SparseArrays
+using RandomLinearAlgebraSolvers, Random, LinearAlgebra, SparseArrays
 Random.seed!(1234)
 ```
 Benchmark of methods to solve `Ax = b` with `A` a randomly generated `m x n` matrix, and `b = A * xref`.

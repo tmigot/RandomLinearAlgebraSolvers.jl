@@ -1,4 +1,4 @@
-using RandomKrylov
+using RandomLinearAlgebraSolvers
 using LinearAlgebra, LLSModels, SparseArrays, Stopping
 using Random, Test
 
@@ -10,7 +10,7 @@ Random.seed!(1234)
 algo_list = [:RandomizedKaczmarz, :RandomizedBlockKaczmarz, :RandomizedCD]
 algo_pd_list = [:RandomizedCD2, :RandomizedNewton]
 
-@testset "RandomKrylov.jl" begin
+@testset "RandomLinearAlgebraSolvers.jl" begin
   # Write your tests here.
 end
 

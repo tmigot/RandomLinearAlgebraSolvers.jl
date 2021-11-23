@@ -1,17 +1,17 @@
 ENV["GKSwstype"] = "100"
-using RandomKrylov
+using RandomLinearAlgebraSolvers
 using Documenter
 
-DocMeta.setdocmeta!(RandomKrylov, :DocTestSetup, :(using RandomKrylov); recursive = true)
+DocMeta.setdocmeta!(RandomLinearAlgebraSolvers, :DocTestSetup, :(using RandomLinearAlgebraSolvers); recursive = true)
 
 makedocs(;
-    modules=[RandomKrylov],
+    modules=[RandomLinearAlgebraSolvers],
     authors="Tangi Migot tangi.migot@gmail.com",
-    repo="https://github.com/tmigot/RandomKrylov.jl/blob/{commit}{path}#{line}",
-    sitename="RandomKrylov.jl",
+    repo="https://github.com/tmigot/RandomLinearAlgebraSolvers.jl/blob/{commit}{path}#{line}",
+    sitename="RandomLinearAlgebraSolvers.jl",
     format=Documenter.HTML(;
         prettyurls=get(ENV, "CI", "false") == "true",
-        canonical="https://tmigot.github.io/RandomKrylov.jl",
+        canonical="https://tmigot.github.io/RandomLinearAlgebraSolvers.jl",
         assets=String[],
     ),
     pages=[
@@ -22,4 +22,4 @@ makedocs(;
     ],
 )
 
-deploydocs(; repo = "github.com/tmigot/RandomKrylov.jl", devbranch = "main")
+deploydocs(; repo = "github.com/tmigot/RandomLinearAlgebraSolvers.jl", devbranch = "main")
