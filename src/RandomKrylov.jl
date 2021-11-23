@@ -45,6 +45,38 @@ function get_vector(pb::LinearSystem)
   return pb.b
 end
 
+export RLAStopping
+
+function RLAStopping(A, b::S; n_listofstates::Int = 0, kwargs...) where {S}
+  T = eltype(S)
+  sparse = issparse(A)
+  pb = sparse ? LLSModel(A, b) : LinearSystem(A, b)
+  x0 = zeros(T, size(A, 2))
+  state = GenericState(similar(x0), similar(b), res = similar(b))
+
+  mcntrs = sparse ? init_max_counters_NLS() : init_max_counters_linear_operators()
+
+  if n_listofstates > 0 && :list ∉ keys(kwargs)
+    list = ListofStates(n_listofstates, Val{typeof(state)}())
+    return LAStopping(
+      pb,
+      state,
+      max_cntrs = mcntrs,
+      list = list,
+      optimality_check = (pb, state) -> state.res;
+      kwargs...
+    )
+  end
+
+  return LAStopping(
+      pb,
+      state,
+      max_cntrs = mcntrs,
+      optimality_check = (pb, state) -> state.res;
+      kwargs...
+  )
+end
+
 include("random_Kaczmarcz.jl")
 include("random_coordinate_descent.jl")
 include("random_projector.jl")
