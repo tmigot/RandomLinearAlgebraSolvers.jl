@@ -11,7 +11,13 @@ algo_list = [:RandomizedKaczmarz, :RandomizedBlockKaczmarz, :RandomizedCD]
 algo_pd_list = [:RandomizedCD2, :RandomizedNewton]
 
 @testset "RandomLinearAlgebraSolvers.jl" begin
-  # Write your tests here.
+  for T in [Float16, Float32, Float64], algo in union(algo_list, algo_pd_list)
+    A = T[1 0; 0 1]
+    b = T[1; 1]
+    stp = eval(algo)(RLAStopping(A, b))
+    sol = stp.current_state.x
+    @test eltype(sol) == T
+  end
 end
 
 function overdetermined_with_random_matrices(T = Float64, m = 10, n = 5)
