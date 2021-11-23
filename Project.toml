@@ -1,4 +1,4 @@
-name = "RandomKrylov"
+name = "RandomLinearAlgebraSolvers"
 uuid = "5efb4b28-465d-11ec-08dc-2f64b808d2ca"
 authors = ["Tangi Migot tangi.migot@gmail.com"]
 version = "0.1.0"

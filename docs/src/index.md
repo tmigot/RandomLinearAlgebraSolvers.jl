@@ -1,14 +1,14 @@
 ```@meta
-CurrentModule = RandomKrylov
+CurrentModule = RandomLinearAlgebraSolvers
 ```
 
-# RandomKrylov
+# RandomLinearAlgebraSolvers
 
-Documentation for [RandomKrylov](https://github.com/tmigot/RandomKrylov.jl).
+Documentation for [RandomLinearAlgebraSolvers](https://github.com/tmigot/RandomLinearAlgebraSolvers.jl).
 
 ```@index
 ```
 
 ```@autodocs
-Modules = [RandomKrylov]
+Modules = [RandomLinearAlgebraSolvers]
 ```

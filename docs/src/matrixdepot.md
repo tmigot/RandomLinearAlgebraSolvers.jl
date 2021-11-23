@@ -1,7 +1,7 @@
 ## Benchmark on MatrixDepot matrices
 
 ```@example ex1
-using RandomKrylov, Random, LinearAlgebra, SparseArrays
+using RandomLinearAlgebraSolvers, Random, LinearAlgebra, SparseArrays
 Random.seed!(1234)
 ```
 We use here [MatrixDepot](https://github.com/JuliaMatrices/MatrixDepot.jl) a collection of 49 matrices (some are scalable).
@@ -40,7 +40,7 @@ for i=1:N
   m, n = size(A)
   xref = 100 * rand(n)
   b = A * xref
-  
+
   x0 = zeros(size(A,2))
   la_stop = LAStopping(A, b, max_iter = 100000, rtol = sqrt(eps()), atol = sqrt(eps()))
   for name in names

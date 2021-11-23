@@ -1,10 +1,10 @@
-# RandomKrylov
+# RandomLinearAlgebraSolvers
 
-[![Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://tmigot.github.io/RandomKrylov.jl/stable)
-[![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://tmigot.github.io/RandomKrylov.jl/dev)
-[![Build Status](https://github.com/tmigot/RandomKrylov.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/tmigot/RandomKrylov.jl/actions/workflows/CI.yml?query=branch%3Amain)
-[![Build Status](https://api.cirrus-ci.com/github/tmigot/RandomKrylov.jl.svg)](https://cirrus-ci.com/github/tmigot/RandomKrylov.jl)
-[![Coverage](https://codecov.io/gh/tmigot/RandomKrylov.jl/branch/main/graph/badge.svg)](https://codecov.io/gh/tmigot/RandomKrylov.jl)
+[![Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://tmigot.github.io/RandomLinearAlgebraSolvers.jl/stable)
+[![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://tmigot.github.io/RandomLinearAlgebraSolvers.jl/dev)
+[![Build Status](https://github.com/tmigot/RandomLinearAlgebraSolvers.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/tmigot/RandomLinearAlgebraSolvers.jl/actions/workflows/CI.yml?query=branch%3Amain)
+[![Build Status](https://api.cirrus-ci.com/github/tmigot/RandomLinearAlgebraSolvers.jl.svg)](https://cirrus-ci.com/github/tmigot/RandomLinearAlgebraSolvers.jl)
+[![Coverage](https://codecov.io/gh/tmigot/RandomLinearAlgebraSolvers.jl/branch/main/graph/badge.svg)](https://codecov.io/gh/tmigot/RandomLinearAlgebraSolvers.jl)
 
 ## Citing
 
@@ -16,8 +16,8 @@ Krylov can be installed and tested through the Julia package manager:
 
 ```julia
 julia> ]
-pkg> add RandomKrylov
-pkg> test RandomKrylov
+pkg> add RandomLinearAlgebraSolvers
+pkg> test RandomLinearAlgebraSolvers
 ```
 
 ## Content
@@ -38,7 +38,7 @@ as an approximation of the initial system in the sense of the [Johnson–Lindens
 
 This package uses [Stopping.jl](https://github.com/vepiteski/Stopping.jl) as a framework for iterative methods.
 ```
-using RandomKrylov
+using RandomLinearAlgebraSolvers
 A, b = rand(10, 5), rand(10)
 stp = RLAStopping(A, b)
 RandomizedKaczmarz(stp)
@@ -54,7 +54,7 @@ We refer to [Krylov.jl](https://github.com/JuliaSmoothOptimizers/Krylov.jl) for 
 
 # Bug reports and discussions
 
-If you think you found a bug, feel free to open an [issue](https://github.com/tmigot/RandomKrylov.jl/issues).
+If you think you found a bug, feel free to open an [issue](https://github.com/tmigot/RandomLinearAlgebraSolvers.jl/issues).
 Focused suggestions and requests can also be opened as issues. Before opening a pull request, start an issue or a discussion on the topic, please.
 
 The package is still at an early stage and new contributions are very welcome. We would like to gather as much information as possible on the provenance of new algorithms.
