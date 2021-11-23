@@ -6,13 +6,9 @@
 [![Build Status](https://api.cirrus-ci.com/github/tmigot/RandomLinearAlgebraSolvers.jl.svg)](https://cirrus-ci.com/github/tmigot/RandomLinearAlgebraSolvers.jl)
 [![Coverage](https://codecov.io/gh/tmigot/RandomLinearAlgebraSolvers.jl/branch/main/graph/badge.svg)](https://codecov.io/gh/tmigot/RandomLinearAlgebraSolvers.jl)
 
-## Citing
-
-See [`CITATION.bib`](CITATION.bib) for the relevant reference(s).
-
 ## How to Install
 
-Krylov can be installed and tested through the Julia package manager:
+`RandomLinearAlgebraSolvers` can be installed and tested through the Julia package manager:
 
 ```julia
 julia> ]
@@ -58,3 +54,7 @@ If you think you found a bug, feel free to open an [issue](https://github.com/tm
 Focused suggestions and requests can also be opened as issues. Before opening a pull request, start an issue or a discussion on the topic, please.
 
 The package is still at an early stage and new contributions are very welcome. We would like to gather as much information as possible on the provenance of new algorithms.
+
+## Citing
+
+See [`CITATION.bib`](CITATION.bib) for the relevant reference(s).
