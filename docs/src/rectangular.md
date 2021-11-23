@@ -34,11 +34,9 @@ for i=1:N
   A = 100 * rand(m, n)
   xref = 100 * rand(n)
   b = A * xref
-  pb = issparse(A) ? LLSModel(A, b) : LinearSystem(A, b)
 
   x0 = zeros(size(A,2))
-  state = GenericState(similar(xref), similar(b), res = similar(b))
-  la_stop = LAStopping(pb, state, max_iter = 100000, rtol = sqrt(eps()), atol = sqrt(eps()), optimality_check = (pb, state) -> state.res)
+  la_stop = LAStopping(A, b, max_iter = 100000, rtol = sqrt(eps()), atol = sqrt(eps()))
   for name in names
 
     #solve the problem
