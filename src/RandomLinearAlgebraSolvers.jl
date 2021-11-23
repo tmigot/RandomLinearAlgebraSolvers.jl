@@ -72,16 +72,16 @@ function RLAStopping(A, b::S; n_listofstates::Int = 0, kwargs...) where {S}
       max_cntrs = mcntrs,
       list = list,
       optimality_check = (pb, state) -> state.res;
-      kwargs...
+      kwargs...,
     )
   end
 
   return LAStopping(
-      pb,
-      state,
-      max_cntrs = mcntrs,
-      optimality_check = (pb, state) -> state.res;
-      kwargs...
+    pb,
+    state,
+    max_cntrs = mcntrs,
+    optimality_check = (pb, state) -> state.res;
+    kwargs...,
   )
 end
 
