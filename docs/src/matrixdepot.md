@@ -8,14 +8,14 @@ We use here [MatrixDepot](https://github.com/JuliaMatrices/MatrixDepot.jl) a col
 ```
 using MatrixDepot
 ```
-Benchmark of methods to solve `Ax = b` with `A` a randomly generated `m x n` matrix, and `b = A * xref`.
+Benchmark of methods to solve `Ax = b` with  `b = A * xref`.
 ```@example ex1
 using DataFrames, Printf, SolverBenchmark, Stopping
 ```
 ```@example ex1
 N = 40 # number of problems
 matrix_problems = mdlist(builtin(1:N))
-param = 100
+param = 50
 ```
 Names of solvers:
 ```@example ex1

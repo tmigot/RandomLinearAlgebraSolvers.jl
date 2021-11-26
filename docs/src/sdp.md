@@ -10,7 +10,7 @@ using DataFrames, Printf, SolverBenchmark, Stopping
 ```
 ```@example ex1
 N = 5 # number of problems
-n = 10000 # size of A: n x n
+n = 100 # size of A: n x n
 ```
 Names of solvers:
 ```@example ex1
