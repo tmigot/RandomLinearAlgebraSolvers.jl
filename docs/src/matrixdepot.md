@@ -42,7 +42,7 @@ for i=1:N
   b = A * xref
 
   x0 = zeros(size(A,2))
-  la_stop = LAStopping(A, b, max_iter = 100000, rtol = sqrt(eps()), atol = sqrt(eps()))
+  la_stop = RLAStopping(A, b, max_iter = 100000, rtol = sqrt(eps()), atol = sqrt(eps()))
   for name in names
 
     #solve the problem
